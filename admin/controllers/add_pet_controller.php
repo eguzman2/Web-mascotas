@@ -46,10 +46,10 @@
         // IF NO ERRORS INSERTING THE NEW RECORD
 
         if (!sizeof($errors)) {
-            $success = addPet($name, $race, $size, $status, $description, $observations);
+            $pet_id = addPet($name, $race, $size, $status, $description, $observations);
     
-            if ($success) {
-                # TODO: redirigir a detalles de la mascota y mostrar mensaje mascota creada
+            if ($pet_id) {
+                header("location:../views/detalle_mascota.php?pet_id=".$pet_id);
             } else {
                 array_push($errors, "ERROR: No se pudo crear la mascota, intenta nuevamente.");
             }

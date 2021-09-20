@@ -10,7 +10,12 @@
       <div class="jumbotron" style="padding: 4rem 2rem 1rem 2rem;">
         <div class="container">
           <h1 class="display-4">Agregar Mascota</h1>
-          <p>¡Crea una nueva mascota, define sus detalles y agregale imágenes!</p>
+          <p>¡Crea una nueva mascota, define sus detalles y luego agregale imágenes!</p>
+          <p>
+                <a class="btn btn-secondary" href="../index.php" role="button">
+                   < Volver a Mascotas
+                </a>
+            </p>
         </div>
       </div>
 

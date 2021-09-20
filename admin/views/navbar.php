@@ -10,14 +10,14 @@
         <a class="nav-link" href="/web-mascotas/admin/index.php">Mascotas</a>
         </li>
         <li class="nav-item">
-        <a class="nav-link" href="#">Inventario</a>
+        <a class="nav-link" href="/web-mascotas/admin/views/inventario.php">Inventario</a>
         </li>
         <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="http://example.com"
             id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Productos</a>
         <div class="dropdown-menu" aria-labelledby="dropdown01">
-            <a class="dropdown-item" href="#">Productos</a>
-            <a class="dropdown-item" href="#">Tipo de Productos</a>
+            <a class="dropdown-item" href="/web-mascotas/admin/views/productos.php">Productos</a>
+            <a class="dropdown-item" href="/web-mascotas/admin/views/tipos_de_producto.php">Tipo de Productos</a>
         </div>
         </li>
         <li class="nav-item">

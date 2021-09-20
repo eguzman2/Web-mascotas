@@ -1,20 +1,20 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <?php include 'views/header.php'; ?>
+    <?php include 'header.php'; ?>
 </head>
 <body>
-    <?php include 'views/navbar.php'; ?>
+    <?php include 'navbar.php'; ?>
 
     <main role="main">
 
       <div class="jumbotron" style="padding: 4rem 2rem 1rem 2rem;">
         <div class="container">
-          <h1 class="display-4">Listado de mascotas</h1>
-          <p>Aquí apareceran todas las mascotas agregadas en el sitio</p>
+          <h1 class="display-4">Tipos de producto</h1>
+          <p>Identifica de la mejor manera tus productos asignandoles un tipo</p>
           <p>
-            <a class="btn btn-primary btn-lg" href="views/agregar_mascota.php" role="button">
-              Agregar una nueva mascota »
+            <a class="btn btn-primary btn-lg" href="agregar_tipo_de_producto.php" role="button">
+              Agregar un nuevo tipo »
             </a>
           </p>
         </div>
@@ -52,38 +52,32 @@
                     <tr>
                     <th scope="col">#</th>
                     <th scope="col">Nombre</th>
-                    <th scope="col">Raza</th>
-                    <th scope="col">Tamaño</th>
-                    <th scope="col">Estado</th>
                     <th scope="col">Acciones</th>
                     </tr>
                 </thead>
                 <tbody>
                     <?php 
-                        require_once 'models/pet_model.php';
-                        $pet_data = getPets();
-                        // echo json_encode($pet_data);
-                        foreach ($pet_data as $pet) {
+                        require_once '../models/product_model.php';
+                        $type_data = getProductTypes();
+                        // echo json_encode($type_data);
+                        foreach ($type_data as $type) {
                             echo "<tr>
-                                    <td>{$pet['id']}</td>
-                                    <td>{$pet['name']}</td>
-                                    <td>{$pet['race']}</td>
-                                    <td>{$pet['size']}</td>
-                                    <td>{$pet['status']}</td>
+                                    <td>{$type['id']}</td>
+                                    <td>{$type['name']}</td>
                                     <td>
                                       <div class='d-inline-flex'>
-                                        <form action='views/detalle_mascota.php' method='get'>
-                                          <input type='hidden' name='pet_id' value='{$pet['id']}'>
+                                        <form action='detalle_tipo_de_producto.php' method='get'>
+                                          <input type='hidden' name='type_id' value='{$type['id']}'>
                                           <button type='submit' class='btn btn-info btn-sm mr-2' data-toggle='tooltip' data-placement='top' title='Ver/Editar'>
                                             <i class='fa fa-eye' aria-hidden='true'></i>
                                           </button>
                                         </form>
-                                        <button type='submit' onclick='deletePetConfirmation({$pet['id']})' class='btn btn-danger btn-sm'
-                                          data-toggle='tooltip' data-placement='top' title='Eliminar Mascota'>
+                                        <button type='submit' onclick='deleteTypeConfirmation({$type['id']})' class='btn btn-danger btn-sm'
+                                          data-toggle='tooltip' data-placement='top' title='Eliminar Tipo de producto'>
                                           <i class='fa fa-trash'></i>
                                         </button>
-                                        <form id='formDeletePet{$pet['id']}' action='controllers/delete_pet_controller.php' method='post'>
-                                          <input type='hidden' name='pet_id' value='{$pet['id']}'>
+                                        <form id='formDeleteType{$type['id']}' action='../controllers/delete_product_type_controller.php' method='post'>
+                                          <input type='hidden' name='type_id' value='{$type['id']}'>
                                         </form>
                                       </div>
                                     </td>
@@ -100,13 +94,13 @@
       </div>
     </main>
 
-    <?php include 'views/footer.php'?>
+    <?php include 'footer.php'?>
 
     <script>
-      function deletePetConfirmation(pet_id){
-        let confirmation = confirm("¿Está seguro de eliminar esta mascota? Esta acción no se puede deshacer");
+      function deleteTypeConfirmation(type_id){
+        let confirmation = confirm("¿Está seguro de eliminar este tipo de producto? Se eliminaran los productos relacionados, esta acción no se puede deshacer");
         if (confirmation) {
-          formId = 'formDeletePet' + pet_id.toString();
+          formId = 'formDeleteType' + type_id.toString();
           form = document.getElementById(formId);
           console.log(formId);
           form.submit();
