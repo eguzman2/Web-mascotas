@@ -1,6 +1,11 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
+    <?php 
+      session_start ();
+      if(!isset($_SESSION["login"]))
+        header("location:login.php"); 
+    ?>
     <?php include 'views/header.php'; ?>
 </head>
 <body>

@@ -1,36 +1,39 @@
 <?php
-    require_once '../models/stock_model.php';
+    require_once '../models/donation_model.php';
 
-    $product_name = $status = $observations = "";
+    $product_name = $status = $donor_name = "";
+    $date = "";
     $quantity = 0;
 
-    $stock_id = False; 
+    $donation_id = False; 
     $errors = [];
 
     function get_current_info(){
         GLOBAL $errors;
 
-        GLOBAL $stock_id;
+        GLOBAL $donation_id;
         GLOBAL $product_name;
         GLOBAL $quantity;
         GLOBAL $status;
-        GLOBAL $observations;
+        GLOBAL $donor_name;
+        GLOBAL $date;
 
-        if ($stock_id == False){
-            if (empty($_GET['stock_id'])){
-                array_push($errors, "ERROR: No podemos obtener los detalles del producto, por favor intenta nuevamente.");
+        if ($donation_id == False){
+            if (empty($_GET['donation_id'])){
+                array_push($errors, "ERROR: No podemos obtener los detalles de la donación, por favor intenta nuevamente.");
                 return True;
             } 
-            $stock_id = $_GET['stock_id'];
+            $donation_id = $_GET['donation_id'];
         }
 
-        $stock_data = getStockFromId($stock_id);
+        $donation_data = getDonationFromId($donation_id);
 
-        foreach ($stock_data as $stock){
-            $product_name = $stock['product_name'];
-            $quantity = $stock['quantity'];
-            $status = $stock['status'];
-            $observations = $stock['observations'];
+        foreach ($donation_data as $donation){
+            $product_name = $donation['product_name'];
+            $quantity = $donation['quantity'];
+            $status = $donation['status'];
+            $donor_name = $donation['donor_name'];
+            $date = $donation['timestamp_date'];
         }
 
     }
@@ -41,18 +44,18 @@
     } 
 
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
-        if (empty($_POST['inputStockId'])){
-            array_push($errors, "ERROR: No es posible editar las existencias del producto, identificador no encontrado.");
+        if (empty($_POST['inputDonationId'])){
+            array_push($errors, "ERROR: No es posible editar la donación, identificador no encontrado.");
         } else {
-            $stock_id = $_POST['inputStockId'];
+            $donation_id = $_POST['inputDonationId'];
         } 
 
-        if ($stock_id == False){
-            array_push($errors, "ERROR: No es posible editar las existencias del producto, identificador no encontrado.");
+        if ($donation_id == False){
+            array_push($errors, "ERROR: No es posible editar la donación, identificador no encontrado.");
         } 
 
         if (empty($_POST["inputQuantity"])) {
-            array_push($errors, "ERROR: No se pudo obtener la cantidad del producto");
+            array_push($errors, "ERROR: No se pudo obtener la cantidad del producto.");
         } else {
             $quantity = format_input($_POST["inputQuantity"]);
         }
@@ -63,22 +66,22 @@
             $status = format_input($_POST["inputStatus"]);
         }
 
-        if (empty($_POST["inputObservations"])) {
-            $observations = "";
+        if (empty($_POST["inputDonorName"])) {
+            $donor_name = "";
         } else {
-            $observations = format_input($_POST["inputObservations"]);
+            $donor_name = format_input($_POST["inputDonorName"]);
         }
 
         // IF THERE IS NO ERRORS EDITING THE RECORD
 
         if (!sizeof($errors)) {
-            $success = editProductInStock($stock_id, $quantity, $status, $observations);
+            $success = editDonation($donation_id, $quantity, $status, $donor_name);
     
             if ($success) {
                 get_current_info();
                 print_success_message();
             } else {
-                array_push($errors, "ERROR: No se pudo editar el producto, intenta nuevamente.");
+                array_push($errors, "ERROR: No se pudo editar la donación, intenta nuevamente.");
             }
         }        
     } else {
@@ -94,7 +97,7 @@
 
     function print_success_message(){
         echo '<div class="alert alert-success alert-dismissible fade show" role="alert">
-        <strong>¡La información del producto se ha actualizado!</strong>
+        <strong>¡La información de la donación se ha actualizado!</strong>
         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>

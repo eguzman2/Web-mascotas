@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
+    <?php require 'check_session.php';?>
     <?php include 'header.php'; ?>
 </head>
 <body>

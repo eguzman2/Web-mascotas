@@ -10,11 +10,11 @@
     <main role="main">
       <div class="jumbotron" style="padding: 4rem 2rem 1rem 2rem;">
         <div class="container">
-            <h1 class="display-4">Existencias del producto</h1>
-            <p>¡Modifica las existencias de un producto!</p>
+            <h1 class="display-4">Detalles de la donación</h1>
+            <p>¡Revisa y modifica los detalles de la donación!</p>
             <p>
-                <a class="btn btn-secondary" href="inventario.php" role="button">
-                   < Volver al inventario
+                <a class="btn btn-secondary" href="donaciones.php" role="button">
+                   < Volver a donaciones
                 </a>
             </p>
         </div>
@@ -27,11 +27,11 @@
                     <!-- FORMULARIO DETALLE INVENTARIO -->
                     <div class="col-md-12">
 
-                      <?php require '../controllers/edit_stock_controller.php'; ?>
+                      <?php require '../controllers/edit_donation_controller.php'; ?>
 
-                      <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]) . '?stock_id=' . $stock_id;?>" method="post">
+                      <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]) . '?donation_id=' . $donation_id;?>" method="post">
                           
-                        <input type="hidden" name="inputStockId" value="<?php echo $stock_id;?>">
+                        <input type="hidden" name="inputDonationId" value="<?php echo $donation_id;?>">
 
                         <div class="form-group">
                             <label for="inputProductName">Nombre del producto</label>
@@ -52,15 +52,15 @@
                             </div>
 
                             <div class="form-group">
-                                <label for="inputObservations">Observaciones</label>
-                                <input type="text" class="form-control" name="inputObservations" placeholder="Observaciones" value="<?php echo $observations;?>">
+                                <label for="inputDonorName">Nombre del donante</label>
+                                <input type="text" class="form-control" name="inputDonorName" placeholder="Donante" value="<?php echo $donor_name;?>">
                             </div>
                           
                         </fieldset>
                         
-                        <button id="btn-enable-edition" type="button" class="btn btn-primary">
+                        <!-- <button id="btn-enable-edition" type="button" class="btn btn-primary">
                             Editar información
-                        </button>
+                        </button> -->
 
                         <input id="btn-submit-edition" type="submit" class="btn btn-success d-none" value="Guardar Cambios">
 
@@ -79,7 +79,7 @@
 
     </main>
 
-    <script src="../src/js/stock-detail.js"></script>
+    <script src="../src/js/donation-detail.js"></script>
 
     <?php include 'footer.php'?>
     

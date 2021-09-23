@@ -11,11 +11,11 @@
 
       <div class="jumbotron" style="padding: 4rem 2rem 1rem 2rem;">
         <div class="container">
-          <h1 class="display-4">Tipos de producto</h1>
-          <p>Identifica de la mejor manera tus productos asignandoles un tipo</p>
+          <h1 class="display-4">Donaciones</h1>
+          <p>Listado de las donaciones recibidas.</p>
           <p>
-            <a class="btn btn-primary btn-lg" href="agregar_tipo_de_producto.php" role="button">
-              Agregar un nuevo tipo »
+            <a class="btn btn-primary btn-lg" href="agregar_donacion.php" role="button">
+              Agregar donación »
             </a>
           </p>
         </div>
@@ -52,33 +52,40 @@
                 <thead class="thead-dark">
                     <tr>
                     <th scope="col">#</th>
-                    <th scope="col">Nombre</th>
+                    <th scope="col">Producto</th>
+                    <th scope="col">Estado</th>
+                    <th scope="col">Cantidad</th>
+                    <th scope="col">Nombre del donador</th>
+                    <th scope="col">Fecha de la donación</th>
                     <th scope="col">Acciones</th>
                     </tr>
                 </thead>
                 <tbody>
                     <?php 
-                        require_once '../models/product_model.php';
-                        $type_data = getProductTypes();
-                        // echo json_encode($type_data);
-                        foreach ($type_data as $type) {
+                        require_once '../models/donation_model.php';
+                        $donation_data = getDonations();
+                        foreach ($donation_data as $donation) {
                             echo "<tr>
-                                    <td>{$type['id']}</td>
-                                    <td>{$type['name']}</td>
+                                    <td>{$donation['id']}</td>
+                                    <td>{$donation['product_name']}</td>
+                                    <td>{$donation['status']}</td>
+                                    <td>{$donation['quantity']}</td>
+                                    <td>{$donation['donor_name']}</td>
+                                    <td>{$donation['timestamp_date']}</td>
                                     <td>
                                       <div class='d-inline-flex'>
-                                        <form action='detalle_tipo_de_producto.php' method='get'>
-                                          <input type='hidden' name='type_id' value='{$type['id']}'>
-                                          <button type='submit' class='btn btn-info btn-sm mr-2' data-toggle='tooltip' data-placement='top' title='Ver/Editar'>
+                                        <form action='detalle_donacion.php' method='get'>
+                                          <input type='hidden' name='donation_id' value='{$donation['id']}'>
+                                          <button type='submit' class='btn btn-info btn-sm mr-2' data-toggle='tooltip' data-placement='top' title='Ver'>
                                             <i class='fa fa-eye' aria-hidden='true'></i>
                                           </button>
                                         </form>
-                                        <button type='submit' onclick='deleteTypeConfirmation({$type['id']})' class='btn btn-danger btn-sm'
-                                          data-toggle='tooltip' data-placement='top' title='Eliminar Tipo de producto'>
+                                        <button type='submit' onclick='deleteDonationConfirmation({$donation['id']})' class='btn btn-danger btn-sm'
+                                          data-toggle='tooltip' data-placement='top' title='Eliminar donación'>
                                           <i class='fa fa-trash'></i>
                                         </button>
-                                        <form id='formDeleteType{$type['id']}' action='../controllers/delete_product_type_controller.php' method='post'>
-                                          <input type='hidden' name='type_id' value='{$type['id']}'>
+                                        <form id='formDeleteDonation{$donation['id']}' action='../controllers/delete_donation_controller.php' method='post'>
+                                          <input type='hidden' name='donation_id' value='{$donation['id']}'>
                                         </form>
                                       </div>
                                     </td>
@@ -98,10 +105,10 @@
     <?php include 'footer.php'?>
 
     <script>
-      function deleteTypeConfirmation(type_id){
-        let confirmation = confirm("¿Está seguro de eliminar este tipo de producto? Se eliminaran los productos relacionados, esta acción no se puede deshacer");
+      function deleteDonationConfirmation(donation_id){
+        let confirmation = confirm("¿Está seguro de eliminar esta donación? Esta acción no se puede deshacer");
         if (confirmation) {
-          formId = 'formDeleteType' + type_id.toString();
+          formId = 'formDeleteDonation' + donation_id.toString();
           form = document.getElementById(formId);
           console.log(formId);
           form.submit();

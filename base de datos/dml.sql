@@ -12,3 +12,9 @@ INSERT INTO `product` (`id`, `name`, `product_type_id`, `brand`, `observations`,
 
 -- Inventario
 INSERT INTO `inventory` (`id`, `product_id`, `quantity`, `status`, `observations`) VALUES (NULL, '1', '20', NULL, NULL);
+
+-- Donacion
+INSERT INTO `donation` (`id`, `product_id`, `status`, `quantity`, `timestamp_date`, `donor_name`) VALUES (NULL, '1', 'Nuevo', '2', current_timestamp(), 'Edgar');
+
+-- Users
+INSERT INTO `users` (`id`, `uname`, `upassword`) VALUES (1, 'admin', 'admin');

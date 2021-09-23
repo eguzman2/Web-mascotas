@@ -76,7 +76,17 @@ DROP TABLE IF EXISTS Donation;
 CREATE TABLE Donation(
     id INT PRIMARY KEY AUTO_INCREMENT,
     product_id INT NOT NULL,
+    quantity INT NOT NULL DEFAULT 0,
+    status VARCHAR(255),
     timestamp_date TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    donor_name VARCHAR(255)
+    donor_name VARCHAR(255),
+    FOREIGN KEY (product_id) REFERENCES Product(id) ON DELETE CASCADE
 );
 
+DROP TABLE IF EXISTS users;
+
+CREATE TABLE  `users` (
+ `id` INT( 50 ) NOT NULL ,
+ `uname` VARCHAR( 40 ) NOT NULL ,
+ `upassword` VARCHAR( 40 ) NOT NULL
+) ENGINE = INNODB DEFAULT CHARSET = latin1;
