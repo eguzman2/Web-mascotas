@@ -1,10 +1,13 @@
 <?php 
     require_once 'db_connection.php';
 
-    function getPets(){
+    function getPets($archived=FALSE){
         $dbconnect = start_connection();
 
-        $where = "";
+        $where = " WHERE p.archived = 0"; 
+        if ($archived) {
+            $where = " WHERE p.archived = 1";
+        }
 
         $query = "SELECT 
         p.id,

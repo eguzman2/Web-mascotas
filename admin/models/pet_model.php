@@ -1,10 +1,13 @@
 <?php
     require_once 'db_connection.php';
 
-    function getPets() {
+    function getPets($archived=FALSE) {
         $dbconnect = start_connection();
 
-        $where = "";
+        $where = " WHERE p.archived = 0"; 
+        if ($archived) {
+            $where = " WHERE p.archived = 1";
+        }
 
         $query = "SELECT 
             p.id,
@@ -108,7 +111,9 @@
     function deletePetById($pet_id){
         $dbconnect = start_connection();
 
-        $query = "DELETE FROM pet WHERE id = $pet_id;";
+        $query = "UPDATE `pet` SET 
+        `archived` = 1
+        WHERE `pet`.`id` = $pet_id;";
 
         $result = mysqli_query($dbconnect, $query) or die (mysqli_error($dbconnect));
 
